@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
 public class BookRepositoryTest {
@@ -64,6 +65,7 @@ public class BookRepositoryTest {
     }
 
     // 3. 책 하나 조회
+    @Sql("classpath:db/tableInit.sql")
     @Test
     public void 책하나조회Test() {
         // given
@@ -79,6 +81,19 @@ public class BookRepositoryTest {
     }
 
     // 4. 책 삭제
+    @Sql("classpath:db/tableInit.sql")
+    @Test
+    public void 책삭제Test() {
+        // given
+        Long id = 1L;
+
+        // when
+        bookRepository.deleteById(id);
+
+        // then
+        assertFalse(bookRepository.findById(id).isPresent());
+    }
+
 
     // 5. 책 수정
 
