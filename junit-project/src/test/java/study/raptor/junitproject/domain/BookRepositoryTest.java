@@ -96,5 +96,37 @@ public class BookRepositoryTest {
 
 
     // 5. 책 수정
+    @Sql("classpath:db/tableInit.sql")
+    @Test
+    public void 책수정Test() {
+        // given
+        Long id = 1L;
+        String title = "junit5";
+        String author = "랩터코딩";
+        Book book = new Book(id, title, author);
 
+        // bookRepository.findAll().stream()
+        //     .forEach(b -> {
+        //         System.out.println(b.getId());
+        //         System.out.println(b.getTitle());
+        //         System.out.println(b.getAuthor());
+        //         System.out.println("====================");
+        //         });
+
+        // when
+        Book bookPS = bookRepository.save(book);
+        // bookRepository.findAll().stream()
+        //     .forEach(b -> {
+        //         System.out.println(b.getId());
+        //         System.out.println(b.getTitle());
+        //         System.out.println(b.getAuthor());
+        //         System.out.println("=========");
+        //         });
+            
+        // then
+        assertEquals(id, bookPS.getId());
+        assertEquals(title, bookPS.getTitle());
+        assertEquals(author, bookPS.getAuthor());
+
+    }
 }
